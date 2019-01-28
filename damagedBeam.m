@@ -1,12 +1,19 @@
-function [V, D] = damagedBeam(damage, ne, f)
+function [V, D] = damagedBeam(ne, ns, damage, f)
     
     %gives eigenvalues and eignevectors of a ne-element beam, where the
-    %damage-argument indicates which element has a damage.
-    % damage = 0 means undamaged beam
-    % f is the severety of the damage, or the percentage of original
+    % damage-parameter is a vector containing the element number of the
+    % damaged elements
+    % damage = [0] means undamaged beam
+    % ns is number of sensors or measure points distributed evenly along the beam
+    % f is a vector containing the severety of the damage, or the fraction of original
     % stiffness
+    
+    % Example:
+    % [V, D] = damagedBeam(100, 9, [10, 30, 90], [0.1, 0.2, 0.5])
+    % will output the mode shapes and natural frequencies a 100 element
+    % beam at 9 sensor locations where the 10, 30 and 90 element have a
+    % damage of 0.1, 0.2 and 0.5 respectively.
 
-    % 10 element simply supported beam
 
     L = 1; % total length
     a = L/ne; % element length
@@ -43,8 +50,9 @@ function [V, D] = damagedBeam(damage, ne, f)
 
     for i=1:ne
 
-        if i == damage
-            K(2*i-1:2*i+2, 2*i-1:2*i+2) = K(2*i-1:2*i+2, 2*i-1:2*i+2) + f*Ke; 
+        if ismember(i, damage)
+            ix = damage==i;
+            K(2*i-1:2*i+2, 2*i-1:2*i+2) = K(2*i-1:2*i+2, 2*i-1:2*i+2) + f(ix)*Ke; 
         else
             K(2*i-1:2*i+2, 2*i-1:2*i+2) = K(2*i-1:2*i+2, 2*i-1:2*i+2) + Ke; 
         end
@@ -62,6 +70,13 @@ function [V, D] = damagedBeam(damage, ne, f)
 
     %% Solve eigenvalueproblem
 
-    [V, D] = eig(Kr, Mr);
+    [tV, tD] = eig(Kr, Mr);
+    tVz = tV(2:2:end-2,:);
+    
+    ds = ne/(ns+1); % number of elements between each sensor location
+    
+    % Result matrices
+    V = tVz(ds:ds:end,:);
+    D = tD;
 
 end
