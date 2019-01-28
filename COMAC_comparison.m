@@ -1,6 +1,6 @@
 close all
 
-% MAC comparison
+% COMAC comparison 
 
 ne = 100;
 ns = 9;
@@ -11,17 +11,13 @@ f = [0.1, 0.2];
 [dV, dD] = damagedBeam(ne, ns, damage, f);
 
 %L = length(uV(1,:));
-L = 20;
-macs = zeros(1, L);
+L = 5;
 
-for i=1:L
-    
-    macs(i) = getMAC(uV(:,i), dV(:,i));
-    
-end
+COMAC = getCOMAC(uV(:,L), dV(:,L));
+
 
 figure
-plot(macs)
+plot(COMAC)
 
 
 figure
