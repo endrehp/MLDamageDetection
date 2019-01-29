@@ -1,6 +1,7 @@
 function COMAC = getCOMAC(U, V)
 
-    % This function returns the COMAC vector for two sets of mode shapes
+    % This function returns the COMAC vector for two sets of mode shapes U
+    % and V
     
     M = length(U(:,1)); % Number of dofs
     N = length(U(1,:)); % Number of mode shapes
