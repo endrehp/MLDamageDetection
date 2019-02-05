@@ -3,12 +3,15 @@ close all
 % Modal Curvature comparison
 
 ne = 100;
-ns = 99;
-damage = [30, 50];
-f = [0.1, 0.2];
+ns = 9;
+damage = 30;
+f = 0.01;
 
-[uV, uD] = damagedBeam(ne, ns, 0, 0);
-[dV, dD] = damagedBeam(ne, ns, damage, f);
+% [uV, uD] = damagedBeam(ne, ns, 0, 0);
+% [dV, dD] = damagedBeam(ne, ns, damage, f);
+
+[uV, uD] = damagedBeamNoise(ne, ns, 0, 0);
+[dV, dD] = damagedBeamNoise(ne, ns, damage, f);
 
 U = [zeros(1, length(uV(1,:))); uV; zeros(1, length(uV(1,:)))];
 V = [zeros(1, length(dV(1,:))); dV; zeros(1, length(dV(1,:)))];
@@ -34,7 +37,7 @@ for i=1:N
     
 end
 
-curv_diff = abs(ddu_tot - ddv_tot);
+curv_diff = abs(abs(ddu_tot) - abs(ddv_tot));
 
 figure
 hold on
@@ -49,7 +52,7 @@ plot(ddU(:,i), "DisplayName", "undamaged")
 plot(ddV(:,i), "DisplayName", "damaged")
 legend('show')
 
-
+%%
 figure
 hold on
 i = 2;

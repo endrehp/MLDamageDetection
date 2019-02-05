@@ -1,6 +1,6 @@
 function [V, D] = damagedBeam(ne, ns, damage, f)
     
-    %gives eigenvalues and eignevectors of a ne-element beam, where the
+    % gives eigenvalues and eignevectors of a ne-element beam, where the
     % damage-parameter is a vector containing the element number of the
     % damaged elements
     % damage = [0] means undamaged beam

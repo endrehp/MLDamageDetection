@@ -3,7 +3,7 @@ close all
 % Yuen comparison
 
 ne = 100;
-ns = 9;
+ns = 99;
 damage = [30, 50];
 f = [0.1, 0.2];
 
@@ -11,7 +11,7 @@ f = [0.1, 0.2];
 [dV, dD] = damagedBeam(ne, ns, damage, f);
 
 %L = length(uV(1,:));
-L = 5;
+L = 2;
 N = length(uV(:,1));
 yuens = zeros(N, L);
 

@@ -3,7 +3,7 @@ close all
 % COMAC comparison 
 
 ne = 100;
-ns = 9;
+ns = 99;
 damage = [30, 50];
 f = [0.1, 0.2];
 
@@ -11,9 +11,9 @@ f = [0.1, 0.2];
 [dV, dD] = damagedBeam(ne, ns, damage, f);
 
 %L = length(uV(1,:));
-L = 5;
+L = 1;
 
-COMAC = getCOMAC(uV(:,L), dV(:,L));
+COMAC = getCOMAC(uV(:,1:L), dV(:,1:L));
 
 
 figure

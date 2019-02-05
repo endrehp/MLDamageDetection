@@ -3,7 +3,7 @@ close all
 % Modal Strain Energy comparison
 
 ne = 100;
-ns = 9;
+ns = 99;
 damage = [30, 50];
 f = [0.1, 0.2];
 
